@@ -108,6 +108,10 @@ h1 {
   color: var(--purple);
 }
 
+a.authorName {
+  cursor: pointer;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

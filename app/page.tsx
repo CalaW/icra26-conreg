@@ -1,4 +1,4 @@
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const basePath = process.env.PAGES_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const links = [
   { label: "PDF", href: `${basePath}/assets/conreg-paper.pdf` },
@@ -10,11 +10,13 @@ const links = [
 const authors = [
   {
     name: "Chen Chen",
-    affiliation: "Department of Automation, Tsinghua University"
+    affiliation: "Department of Automation, Tsinghua University",
+    href: "https://calaw.cc"
   },
   {
     name: "Yunwen Li",
-    affiliation: "Tsingscribe Medical Ltd.; D-MAVT, ETH Zurich"
+    affiliation: "Tsingscribe Medical Ltd.; D-MAVT, ETH Zurich",
+    href: "https://li-yunwen.github.io"
   },
   {
     name: "Yifan Xu",
@@ -22,7 +24,8 @@ const authors = [
   },
   {
     name: "Xiangjie Yan",
-    affiliation: "Department of Automation, Tsinghua University"
+    affiliation: "Department of Automation, Tsinghua University",
+    href: "https://yanseim.github.io"
   },
   {
     name: "Chang Shu",
@@ -38,7 +41,8 @@ const authors = [
   },
   {
     name: "Xiang Li",
-    affiliation: "Department of Automation, Tsinghua University"
+    affiliation: "Department of Automation, Tsinghua University",
+    href: "https://sites.google.com/view/homepageoflixiang/home"
   }
 ];
 
@@ -133,9 +137,19 @@ export default function Home() {
           <p className="authors">
             {authors.map((author, index) => (
               <span key={author.name}>
-                <span className="authorName" title={author.affiliation}>
-                  {author.name}
-                </span>
+                {author.href ? (
+                  <a
+                    className="authorName"
+                    href={author.href}
+                    title={author.affiliation}
+                  >
+                    {author.name}
+                  </a>
+                ) : (
+                  <span className="authorName" title={author.affiliation}>
+                    {author.name}
+                  </span>
+                )}
                 {index < authors.length - 1 ? " · " : ""}
               </span>
             ))}
