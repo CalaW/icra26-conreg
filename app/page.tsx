@@ -15,7 +15,7 @@ const authors = [
   },
   {
     name: "Yunwen Li",
-    affiliation: "Tsingscribe Medical Ltd.; D-MAVT, ETH Zurich",
+    affiliation: "Tsingscribe Medical Ltd.\nD-MAVT, ETH Zurich",
     href: "https://li-yunwen.github.io"
   },
   {
@@ -141,12 +141,15 @@ export default function Home() {
                   <a
                     className="authorName"
                     href={author.href}
-                    title={author.affiliation}
+                    data-affiliation={author.affiliation}
                   >
                     {author.name}
                   </a>
                 ) : (
-                  <span className="authorName" title={author.affiliation}>
+                  <span
+                    className="authorName"
+                    data-affiliation={author.affiliation}
+                  >
                     {author.name}
                   </span>
                 )}
