@@ -1,3 +1,5 @@
+import AuthorList from "./AuthorList";
+
 const basePath = process.env.PAGES_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const links = [
@@ -129,34 +131,17 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="heroInner">
-          <p className="venue">IEEE ICRA 2026</p>
+          <div className="venueBlock">
+            <p className="venue">IEEE ICRA 2026</p>
+            <p className="posterInfo">
+              Thu, 15:00–16:30 · Interaction Session 4 · Wel2l.223
+            </p>
+          </div>
           <h1>From Swept Contact to Pose</h1>
           <p className="subtitle">
             Probe-aware registration via complementary-shape docking
           </p>
-          <p className="authors">
-            {authors.map((author, index) => (
-              <span key={author.name}>
-                {author.href ? (
-                  <a
-                    className="authorName"
-                    href={author.href}
-                    data-affiliation={author.affiliation}
-                  >
-                    {author.name}
-                  </a>
-                ) : (
-                  <span
-                    className="authorName"
-                    data-affiliation={author.affiliation}
-                  >
-                    {author.name}
-                  </span>
-                )}
-                {index < authors.length - 1 ? " · " : ""}
-              </span>
-            ))}
-          </p>
+          <AuthorList authors={authors} />
           <div className="actions" aria-label="Project links">
             {links.map((link) => (
               <a key={link.label} href={link.href}>
@@ -299,10 +284,6 @@ export default function Home() {
 }`}</pre>
       </section>
 
-      <footer>
-        <span>Probe-aware Registration</span>
-        <a href="http://arxiv.org/abs/2605.21398">arXiv:2605.21398</a>
-      </footer>
     </main>
   );
 }
