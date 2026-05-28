@@ -153,7 +153,7 @@ export default function Home() {
         <div className="heroVisual" aria-label="Project overview figures">
           <img
             className="heroFigure"
-            src={`${basePath}/assets/trailer.svg`}
+            src={`${basePath}/assets/trailer.avif`}
             alt="Tooth preparation robot and swept contact registration illustration"
           />
           <img
