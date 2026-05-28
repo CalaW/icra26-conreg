@@ -1,0 +1,42 @@
+<svg width="1500" height="620" viewBox="0 0 1500 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="620" fill="#FFFFFF"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <g transform="translate(70 92)">
+      <rect width="290" height="360" rx="18" fill="#F8F7F2" stroke="#D7DDD9" stroke-width="3"/>
+      <path d="M64 250C105 203 148 180 193 181C238 182 276 209 305 262" stroke="#2D5F8F" stroke-width="12" stroke-linecap="round"/>
+      <path d="M63 302C118 331 179 337 246 319" stroke="#2F745C" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="101" cy="260" r="12" fill="#B94F47"/>
+      <circle cx="186" cy="191" r="12" fill="#B94F47"/>
+      <circle cx="244" cy="314" r="12" fill="#B94F47"/>
+      <path d="M218 74L286 217" stroke="#17211F" stroke-width="12" stroke-linecap="round"/>
+      <path d="M118 206C148 174 183 154 224 146" stroke="#C0933D" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 20"/>
+      <text x="30" y="44" font-size="24" font-weight="750" fill="#17211F">Contact sweep</text>
+      <text x="30" y="332" font-size="18" fill="#5C6763">contact + free-space evidence</text>
+    </g>
+    <path d="M405 270H507" stroke="#17211F" stroke-width="4" stroke-linecap="round"/>
+    <path d="M489 246L517 270L489 294" stroke="#17211F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(545 92)">
+      <rect width="290" height="360" rx="18" fill="#F8F7F2" stroke="#D7DDD9" stroke-width="3"/>
+      <rect x="53" y="115" width="184" height="184" rx="16" fill="#FFFFFF" stroke="#17211F" stroke-width="5"/>
+      <path d="M83 246H207M83 206H207M83 166H207M105 136V276M145 136V276M185 136V276" stroke="#D7DDD9" stroke-width="3"/>
+      <path d="M91 225C119 184 154 163 196 162" stroke="#2D5F8F" stroke-width="10" stroke-linecap="round"/>
+      <path d="M91 249C124 265 161 269 202 260" stroke="#2F745C" stroke-width="10" stroke-linecap="round"/>
+      <text x="30" y="44" font-size="24" font-weight="750" fill="#17211F">Complement field</text>
+      <text x="30" y="332" font-size="18" fill="#5C6763">voxelized docking objective</text>
+    </g>
+    <path d="M880 270H982" stroke="#17211F" stroke-width="4" stroke-linecap="round"/>
+    <path d="M964 246L992 270L964 294" stroke="#17211F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(1020 92)">
+      <rect width="410" height="360" rx="18" fill="#F8F7F2" stroke="#D7DDD9" stroke-width="3"/>
+      <circle cx="126" cy="197" r="72" fill="#FFFFFF" stroke="#2D5F8F" stroke-width="6"/>
+      <circle cx="126" cy="197" r="38" fill="#FFFFFF" stroke="#2F745C" stroke-width="6"/>
+      <path d="M126 95V121M126 273V299M24 197H50M202 197H228" stroke="#17211F" stroke-width="4" stroke-linecap="round"/>
+      <path d="M260 246C286 217 315 203 348 204C380 205 405 220 423 250" stroke="#2D5F8F" stroke-width="10" stroke-linecap="round"/>
+      <path d="M260 286C305 306 349 306 394 286" stroke="#2F745C" stroke-width="10" stroke-linecap="round"/>
+      <circle cx="302" cy="225" r="10" fill="#B94F47"/>
+      <circle cx="376" cy="287" r="10" fill="#B94F47"/>
+      <text x="30" y="44" font-size="24" font-weight="750" fill="#17211F">Global-to-local pose</text>
+      <text x="30" y="332" font-size="18" fill="#5C6763">SO(3) sampling + FFT + SE(3) refinement</text>
+    </g>
+  </g>
+</svg>
