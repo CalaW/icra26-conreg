@@ -20,12 +20,21 @@
             Probe-aware registration via complementary-shape docking
           </p>
           <p class="authors">
-            Chen Chen · Yunwen Li · Yifan Xu · Xiangjie Yan · Chang Shu ·
-            Jianxia Hou · Shiji Song · Xiang Li
-          </p>
-          <p class="affiliations">
-            Tsinghua University · Tsingscribe Medical Ltd. · ETH Zurich ·
-            Peking University School and Hospital of Stomatology
+            <span class="authorName" title="Department of Automation, Tsinghua University">Chen Chen</span>
+            ·
+            <span class="authorName" title="Tsingscribe Medical Ltd.; D-MAVT, ETH Zurich">Yunwen Li</span>
+            ·
+            <span class="authorName" title="Department of Automation, Tsinghua University">Yifan Xu</span>
+            ·
+            <span class="authorName" title="Department of Automation, Tsinghua University">Xiangjie Yan</span>
+            ·
+            <span class="authorName" title="Peking University School and Hospital of Stomatology">Chang Shu</span>
+            ·
+            <span class="authorName" title="Peking University School and Hospital of Stomatology">Jianxia Hou</span>
+            ·
+            <span class="authorName" title="Department of Automation, Tsinghua University">Shiji Song</span>
+            ·
+            <span class="authorName" title="Department of Automation, Tsinghua University">Xiang Li</span>
           </p>
           <div class="actions" aria-label="Project links">
             <a href="public/assets/conreg-paper.pdf">PDF</a>
@@ -34,30 +43,36 @@
             <a href="#citation">BibTeX</a>
           </div>
         </div>
-        <img
-          class="heroFigure"
-          src="public/assets/trailer.svg"
-          alt="Tooth preparation robot and swept contact registration illustration"
-        />
+        <div class="heroVisual" aria-label="Project overview figures">
+          <img
+            class="heroFigure"
+            src="public/assets/trailer.svg"
+            alt="Tooth preparation robot and swept contact registration illustration"
+          />
+          <img
+            class="heroAbstract"
+            src="public/assets/graphical_abstract.svg"
+            alt="Graphical abstract of probe-aware complementary-shape docking"
+          />
+        </div>
       </section>
 
       <section class="section twoCol">
         <div>
           <h2>Contact Registration Without External Tracking</h2>
           <p>
-            Accurate alignment between a prior object model and the real scene
-            is critical for high-precision robotic manipulation. Instead of
-            relying on optical tracking, long calibration chains, or fragile
-            point correspondences, this work treats the problem as
-            complementary-shape docking between the object and the swept volume
-            of a physical probe.
+            Precise alignment between a prior object model and the real scene is
+            essential for surgical robots, precision assembly, and other
+            manipulation tasks where small pose errors directly affect execution.
+            Optical registration can be accurate, but it also introduces
+            line-of-sight constraints, hand-eye calibration, marker fabrication,
+            and mounting errors.
           </p>
           <p>
-            The formulation uses both contact and non-contact evidence and
-            explicitly models probe geometry. A global-to-local search explores
-            pose hypotheses with 3D FFT correlation over SO(3) samples, then
-            refines the result continuously in SE(3) with analytic contact
-            sensitivities.
+            This work uses the robot's own contact trajectory instead. By
+            modeling the full swept volume of a rigid probe, the method turns
+            sparse and intermittent contact into dense geometric constraints
+            that combine contact and free-space evidence.
           </p>
         </div>
         <div class="metricGrid" aria-label="Key results">
@@ -71,12 +86,44 @@
           </div>
           <div class="metric">
             <strong>0.42 mm</strong>
-            <span>robot registration error</span>
+            <span>real-world execution translation error</span>
           </div>
           <div class="metric">
             <strong>3.75 deg</strong>
-            <span>robot orientation error</span>
+            <span>real-world execution rotation error</span>
           </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Contributions</h2>
+        <div class="pillars">
+          <article>
+            <span>01</span>
+            <h3>Complementary-shape Docking</h3>
+            <p>
+              Contact registration is reformulated as docking between the object
+              model and the probe's swept volume, explicitly encoding probe
+              geometry instead of relying on fragile point correspondences.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Global-to-local Search</h3>
+            <p>
+              FFT-based translation correlation is coupled with low-discrepancy
+              orientation sampling to search SE(3) efficiently and produce robust
+              initial hypotheses.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Continuous SE(3) Refinement</h3>
+            <p>
+              A Lie-algebraic optimization with analytic contact sensitivities
+              refines the pose continuously for metric-grade convergence.
+            </p>
+          </article>
         </div>
       </section>
 
@@ -93,35 +140,38 @@
 
       <section class="section">
         <h2>Method</h2>
-        <img
-          class="wideFigure"
-          src="public/assets/pipeline.svg"
-          alt="Pipeline from swept probe observations to global search and SE(3) refinement"
-        />
+        <div class="figureScroller" aria-label="Method pipeline figure">
+          <img
+            class="wideFigure"
+            src="public/assets/pipeline.svg"
+            alt="Pipeline from swept probe observations to global search and SE(3) refinement"
+          />
+        </div>
         <div class="pillars">
           <article>
-            <span>01</span>
-            <h3>Probe-aware Evidence</h3>
+            <span>A</span>
+            <h3>Global Grid Search</h3>
             <p>
-              Contacts are interpreted through the swept volume of the probe,
-              while free-space observations constrain where object surface cannot
-              be.
+              The object and swept probe volume are voxelized, and 3D FFT
+              correlation evaluates translations for globally sampled SO(3)
+              orientations.
             </p>
           </article>
           <article>
-            <span>02</span>
-            <h3>Complementary Docking</h3>
+            <span>B</span>
+            <h3>Local Orientation Search</h3>
             <p>
-              Registration becomes a shape matching problem between the object
-              model and the probe-induced complementary volume.
+              The best coarse orientation is refined inside a geodesic ball on
+              SO(3) with a low-discrepancy GeoBall-SF sampler.
             </p>
           </article>
           <article>
-            <span>03</span>
-            <h3>Global-to-local Pose Search</h3>
+            <span>C</span>
+            <h3>Continuous Optimization</h3>
             <p>
-              Low-discrepancy SO(3) sampling and 3D FFT correlation provide
-              broad exploration before Lie-algebra SE(3) refinement.
+              Starting from the discrete hypothesis, a bounded SE(3)
+              optimization maximizes smooth contact proximity while penalizing
+              penetration.
             </p>
           </article>
         </div>
@@ -131,25 +181,28 @@
         <div>
           <h2>Results</h2>
           <p>
-            In simulation over free-form meshes, the method reaches metric-grade
-            accuracy and remains robust under pose noise and contact loss. On a
-            tooth-preparation robot, it achieves 0.42 mm and 3.75 deg error,
-            outperforming an optical-tracker registration setup without
-            requiring external sensors.
+            In simulation across five free-form meshes, the final refinement
+            stage reached 0.031 mm and 0.325 deg mean error and remained stable
+            under practical pose noise and sparse contact. On the real
+            tooth-preparation robot, the complete registration-to-execution
+            pipeline achieved 0.42 mm and 3.75 deg execution error while avoiding
+            the calibration-chain failures observed with optical tracking.
           </p>
         </div>
         <div class="callout">
           <p>
-            The key practical advantage is a calibration-free registration
-            strategy that uses the robot's own contact interaction as the
-            sensing signal.
+            The practical advantage is a calibration-free strategy that requires
+            neither external sensors nor careful initialization, only manipulator
+            proprioception and the known probe geometry.
           </p>
         </div>
       </section>
 
       <section class="figureGrid section">
         <article class="figureWide">
-          <img src="public/assets/sim-overview.svg" alt="Simulation objects" />
+          <div class="figureScroller">
+            <img src="public/assets/sim-overview.svg" alt="Simulation objects" />
+          </div>
           <h3>Simulation objects</h3>
           <p>Five free-form meshes with cylindrical probe sweep trajectories.</p>
         </article>

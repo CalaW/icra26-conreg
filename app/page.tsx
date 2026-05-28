@@ -8,21 +8,87 @@ const links = [
 ];
 
 const authors = [
-  "Chen Chen",
-  "Yunwen Li",
-  "Yifan Xu",
-  "Xiangjie Yan",
-  "Chang Shu",
-  "Jianxia Hou",
-  "Shiji Song",
-  "Xiang Li"
+  {
+    name: "Chen Chen",
+    affiliation: "Department of Automation, Tsinghua University"
+  },
+  {
+    name: "Yunwen Li",
+    affiliation: "Tsingscribe Medical Ltd.; D-MAVT, ETH Zurich"
+  },
+  {
+    name: "Yifan Xu",
+    affiliation: "Department of Automation, Tsinghua University"
+  },
+  {
+    name: "Xiangjie Yan",
+    affiliation: "Department of Automation, Tsinghua University"
+  },
+  {
+    name: "Chang Shu",
+    affiliation: "Peking University School and Hospital of Stomatology"
+  },
+  {
+    name: "Jianxia Hou",
+    affiliation: "Peking University School and Hospital of Stomatology"
+  },
+  {
+    name: "Shiji Song",
+    affiliation: "Department of Automation, Tsinghua University"
+  },
+  {
+    name: "Xiang Li",
+    affiliation: "Department of Automation, Tsinghua University"
+  }
 ];
 
 const metrics = [
   { value: "0.031 mm", label: "mean simulation translation error" },
   { value: "0.325 deg", label: "mean simulation rotation error" },
-  { value: "0.42 mm", label: "robot registration error" },
-  { value: "3.75 deg", label: "robot orientation error" }
+  { value: "0.42 mm", label: "real-world execution translation error" },
+  { value: "3.75 deg", label: "real-world execution rotation error" }
+];
+
+const contributions = [
+  {
+    index: "01",
+    title: "Complementary-shape Docking",
+    text:
+      "Contact registration is reformulated as docking between the object model and the probe's swept volume, explicitly encoding probe geometry instead of relying on fragile point correspondences."
+  },
+  {
+    index: "02",
+    title: "Global-to-local Search",
+    text:
+      "FFT-based translation correlation is coupled with low-discrepancy orientation sampling to search SE(3) efficiently and produce robust initial hypotheses."
+  },
+  {
+    index: "03",
+    title: "Continuous SE(3) Refinement",
+    text:
+      "A Lie-algebraic optimization with analytic contact sensitivities refines the pose continuously for metric-grade convergence."
+  }
+];
+
+const methodStages = [
+  {
+    index: "A",
+    title: "Global Grid Search",
+    text:
+      "The object and swept probe volume are voxelized, and 3D FFT correlation evaluates translations for globally sampled SO(3) orientations."
+  },
+  {
+    index: "B",
+    title: "Local Orientation Search",
+    text:
+      "The best coarse orientation is refined inside a geodesic ball on SO(3) with a low-discrepancy GeoBall-SF sampler."
+  },
+  {
+    index: "C",
+    title: "Continuous Optimization",
+    text:
+      "Starting from the discrete hypothesis, a bounded SE(3) optimization maximizes smooth contact proximity while penalizing penetration."
+  }
 ];
 
 const resultFigures = [
@@ -64,10 +130,15 @@ export default function Home() {
           <p className="subtitle">
             Probe-aware registration via complementary-shape docking
           </p>
-          <p className="authors">{authors.join(" · ")}</p>
-          <p className="affiliations">
-            Tsinghua University · Tsingscribe Medical Ltd. · ETH Zurich ·
-            Peking University School and Hospital of Stomatology
+          <p className="authors">
+            {authors.map((author, index) => (
+              <span key={author.name}>
+                <span className="authorName" title={author.affiliation}>
+                  {author.name}
+                </span>
+                {index < authors.length - 1 ? " · " : ""}
+              </span>
+            ))}
           </p>
           <div className="actions" aria-label="Project links">
             {links.map((link) => (
@@ -77,30 +148,36 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <img
-          className="heroFigure"
-          src={`${basePath}/assets/trailer.svg`}
-          alt="Tooth preparation robot and swept contact registration illustration"
-        />
+        <div className="heroVisual" aria-label="Project overview figures">
+          <img
+            className="heroFigure"
+            src={`${basePath}/assets/trailer.svg`}
+            alt="Tooth preparation robot and swept contact registration illustration"
+          />
+          <img
+            className="heroAbstract"
+            src={`${basePath}/assets/graphical_abstract.svg`}
+            alt="Graphical abstract of probe-aware complementary-shape docking"
+          />
+        </div>
       </section>
 
       <section className="section twoCol">
         <div>
           <h2>Contact Registration Without External Tracking</h2>
           <p>
-            Accurate alignment between a prior object model and the real scene
-            is critical for high-precision robotic manipulation. Instead of
-            relying on optical tracking, long calibration chains, or fragile
-            point correspondences, this work treats the problem as
-            complementary-shape docking between the object and the swept volume
-            of a physical probe.
+            Precise alignment between a prior object model and the real scene is
+            essential for surgical robots, precision assembly, and other
+            manipulation tasks where small pose errors directly affect execution.
+            Optical registration can be accurate, but it also introduces
+            line-of-sight constraints, hand-eye calibration, marker fabrication,
+            and mounting errors.
           </p>
           <p>
-            The formulation uses both contact and non-contact evidence and
-            explicitly models probe geometry. A global-to-local search explores
-            pose hypotheses with 3D FFT correlation over SO(3) samples, then
-            refines the result continuously in SE(3) with analytic contact
-            sensitivities.
+            This work uses the robot's own contact trajectory instead. By
+            modeling the full swept volume of a rigid probe, the method turns
+            sparse and intermittent contact into dense geometric constraints
+            that combine contact and free-space evidence.
           </p>
         </div>
         <div className="metricGrid" aria-label="Key results">
@@ -109,6 +186,19 @@ export default function Home() {
               <strong>{metric.value}</strong>
               <span>{metric.label}</span>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <h2>Contributions</h2>
+        <div className="pillars">
+          {contributions.map((item) => (
+            <article key={item.title}>
+              <span>{item.index}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
           ))}
         </div>
       </section>
@@ -126,37 +216,21 @@ export default function Home() {
 
       <section className="section">
         <h2>Method</h2>
-        <img
-          className="wideFigure"
-          src={`${basePath}/assets/pipeline.svg`}
-          alt="Pipeline from swept probe observations to global search and SE(3) refinement"
-        />
+        <div className="figureScroller" aria-label="Method pipeline figure">
+          <img
+            className="wideFigure"
+            src={`${basePath}/assets/pipeline.svg`}
+            alt="Pipeline from swept probe observations to global search and SE(3) refinement"
+          />
+        </div>
         <div className="pillars">
-          <article>
-            <span>01</span>
-            <h3>Probe-aware Evidence</h3>
-            <p>
-              Contacts are interpreted through the swept volume of the probe,
-              while free-space observations constrain where object surface cannot
-              be.
-            </p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Complementary Docking</h3>
-            <p>
-              Registration becomes a shape matching problem between the object
-              model and the probe-induced complementary volume.
-            </p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Global-to-local Pose Search</h3>
-            <p>
-              Low-discrepancy SO(3) sampling and 3D FFT correlation provide
-              broad exploration before Lie-algebra SE(3) refinement.
-            </p>
-          </article>
+          {methodStages.map((stage) => (
+            <article key={stage.title}>
+              <span>{stage.index}</span>
+              <h3>{stage.title}</h3>
+              <p>{stage.text}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -164,18 +238,19 @@ export default function Home() {
         <div>
           <h2>Results</h2>
           <p>
-            In simulation over free-form meshes, the method reaches metric-grade
-            accuracy and remains robust under pose noise and contact loss. On a
-            tooth-preparation robot, it achieves 0.42 mm and 3.75 deg error,
-            outperforming an optical-tracker registration setup without
-            requiring external sensors.
+            In simulation across five free-form meshes, the final refinement
+            stage reached 0.031 mm and 0.325 deg mean error and remained stable
+            under practical pose noise and sparse contact. On the real
+            tooth-preparation robot, the complete registration-to-execution
+            pipeline achieved 0.42 mm and 3.75 deg execution error while avoiding
+            the calibration-chain failures observed with optical tracking.
           </p>
         </div>
         <div className="callout">
           <p>
-            The key practical advantage is a calibration-free registration
-            strategy that uses the robot's own contact interaction as the sensing
-            signal.
+            The practical advantage is a calibration-free strategy that requires
+            neither external sensors nor careful initialization, only manipulator
+            proprioception and the known probe geometry.
           </p>
         </div>
       </section>
@@ -183,10 +258,12 @@ export default function Home() {
       <section className="figureGrid section">
         {resultFigures.map((figure) => (
           <article className={figure.wide ? "figureWide" : undefined} key={figure.src}>
-            <img
-              src={`${basePath}/assets/${figure.src}`}
-              alt={figure.title}
-            />
+            <div className={figure.wide ? "figureScroller" : undefined}>
+              <img
+                src={`${basePath}/assets/${figure.src}`}
+                alt={figure.title}
+              />
+            </div>
             <h3>{figure.title}</h3>
             <p>{figure.text}</p>
           </article>

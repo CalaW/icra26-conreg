@@ -40,16 +40,16 @@ main {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
-  gap: clamp(28px, 5vw, 72px);
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  gap: clamp(30px, 4.5vw, 64px);
   align-items: center;
-  min-height: 92vh;
+  min-height: 88vh;
   padding: clamp(28px, 5vw, 72px);
   border-bottom: 1px solid var(--line);
 }
 
 .heroInner {
-  max-width: 780px;
+  max-width: 720px;
 }
 
 .venue {
@@ -69,12 +69,14 @@ p {
 }
 
 h1 {
-  margin-bottom: 18px;
+  max-width: 760px;
+  margin-bottom: 20px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(3.25rem, 7.4vw, 7.3rem);
-  line-height: 0.95;
+  font-size: clamp(2.9rem, 5.4vw, 5.4rem);
+  line-height: 1.02;
   font-weight: 500;
   letter-spacing: 0;
+  text-wrap: balance;
 }
 
 .subtitle {
@@ -88,18 +90,22 @@ h1 {
 
 .authors {
   max-width: 760px;
-  margin-bottom: 8px;
+  margin-bottom: 28px;
   color: var(--muted);
   font-size: 1rem;
   line-height: 1.7;
 }
 
-.affiliations {
-  max-width: 760px;
-  margin-bottom: 28px;
-  color: #394541;
-  font-size: 0.94rem;
-  line-height: 1.6;
+.authorName {
+  cursor: help;
+  text-decoration: underline;
+  text-decoration-color: rgba(102, 8, 116, 0.28);
+  text-decoration-style: dotted;
+  text-underline-offset: 0.18em;
+}
+
+.authorName:hover {
+  color: var(--purple);
 }
 
 .actions {
@@ -137,20 +143,32 @@ h1 {
   color: var(--purple);
 }
 
+.heroVisual,
 .heroFigure,
+.heroAbstract,
 .wideFigure {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.heroFigure {
-  align-self: end;
-  max-height: 68vh;
-  object-fit: contain;
+.heroVisual {
+  align-self: center;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--white);
+  box-shadow: 0 22px 70px rgba(102, 8, 116, 0.09);
+}
+
+.heroFigure {
+  border-bottom: 1px solid var(--line);
+}
+
+.heroAbstract {
+  max-height: 34vh;
+  object-fit: contain;
+  padding: clamp(8px, 1.4vw, 16px);
 }
 
 .section {
@@ -243,6 +261,13 @@ h2 {
   background: var(--white);
 }
 
+.figureScroller {
+  width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 .pillars {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -294,7 +319,7 @@ h2 {
 
 .figureWide {
   grid-column: 1 / -1;
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 .figureGrid article {
@@ -310,11 +335,10 @@ h2 {
   aspect-ratio: 16 / 10;
   object-fit: contain;
   border-bottom: 1px solid var(--line);
-  background: var(--soft);
+  background: var(--white);
 }
 
 .figureWide img {
-  min-width: 760px;
   aspect-ratio: auto;
 }
 
@@ -372,6 +396,10 @@ footer a {
     max-height: none;
   }
 
+  .heroAbstract {
+    max-height: none;
+  }
+
   .pillars {
     grid-template-columns: 1fr;
   }
@@ -380,18 +408,15 @@ footer a {
     grid-template-columns: 1fr;
   }
 
-  .wideFigure {
+  .figureScroller .wideFigure,
+  .figureWide .figureScroller img {
     min-width: 720px;
-  }
-
-  .section:has(.wideFigure) {
-    overflow-x: auto;
   }
 }
 
 @media (max-width: 620px) {
   h1 {
-    font-size: clamp(3rem, 16vw, 4.6rem);
+    font-size: clamp(2.45rem, 11vw, 3.55rem);
   }
 
   .metricGrid {
