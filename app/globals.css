@@ -111,6 +111,8 @@ h1 {
 }
 
 .authorItem {
+  display: inline-block;
+  margin-right: 0.35em;
   white-space: nowrap;
 }
 

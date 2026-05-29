@@ -88,7 +88,7 @@ export default function AuthorList({ authors }: { authors: Author[] }) {
               {author.name}
             </span>
           )}
-          {index < authors.length - 1 ? " · " : ""}
+          {index < authors.length - 1 ? " ·" : ""}
         </span>
       ))}
       {tooltip ? (
