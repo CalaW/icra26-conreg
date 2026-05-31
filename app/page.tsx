@@ -5,7 +5,7 @@ const basePath = process.env.PAGES_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PAT
 const links = [
   { label: "PDF", href: `${basePath}/assets/conreg-paper.pdf` },
   { label: "arXiv", href: "http://arxiv.org/abs/2605.21398" },
-  { label: "Video", href: "https://youtu.be/LNErWbkF8kc" },
+  { label: "Video", href: "https://youtu.be/qm2wlbLClrs" },
   { label: "BibTeX", href: "#citation" }
 ];
 
@@ -208,7 +208,7 @@ export default function Home() {
       <section className="mediaBand">
         <div className="videoWrap">
           <iframe
-            src="https://www.youtube.com/embed/LNErWbkF8kc"
+            src="https://www.youtube.com/embed/qm2wlbLClrs"
             title="Project video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
